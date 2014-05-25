@@ -14,4 +14,4 @@ Elasticsearch sendo responsável por todas as pesquisas
 Redis sendo responsável por guardar o cache das notícias mais acessadas.
 
 
-Design responsivo e minimalista para funcionar em dispositivos móveis com internet lenta.
+Design responsivo e minimalista para funcionar bem em dispositivos móveis com internet lenta.

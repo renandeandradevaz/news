@@ -1,28 +1,17 @@
-== README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+AINDA EM DESENVOLVIMENTO!!!
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+
+Site de notícias que pega as notícias do g1.globo.com
+
+
+Desenvolvido em Rails + mysql + elasticsearch + redis
+
+
+Elasticsearch sendo responsável por todas as pesquisas
+
+
+Redis sendo responsável por guardar o cache das notícias mais acessadas.
+
+
+Design responsivo e minimalista para funcionar em dispositivos móveis com internet lenta.

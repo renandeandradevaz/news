@@ -90,10 +90,6 @@ class Noticia < ActiveRecord::Base
 
   def self.pesquisar_no_elasticsearch(query, from)
 
-    puts '==============='
-    puts from
-    puts '==============='
-
     if (from.blank?)
       from = 0.to_s
     else

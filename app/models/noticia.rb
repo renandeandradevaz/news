@@ -4,7 +4,7 @@ class Noticia < ActiveRecord::Base
   self.table_name = "noticias"
 
   ENDERECO_NOTICIAS_ELASTICSEARCH = "http://localhost:9200/noticias/"
-  LIMITE_NOTICIAS_POR_PAGINA = 3
+  LIMITE_NOTICIAS_POR_PAGINA = 1
   LIMITE_PAGINAS_NO_CACHE = 4
 
   def after_save
@@ -52,7 +52,7 @@ class Noticia < ActiveRecord::Base
 
   def self.buscar_noticias_do_banco(pagina)
     offset = pagina - 1
-    Noticia.select(:titulo, :url).order(created_at: :desc).limit(LIMITE_NOTICIAS_POR_PAGINA).offset(LIMITE_NOTICIAS_POR_PAGINA * offset)
+    Noticia.select(:titulo, :url).order(id: :desc).limit(LIMITE_NOTICIAS_POR_PAGINA).offset(LIMITE_NOTICIAS_POR_PAGINA * offset)
   end
 
   def self.obter_noticias(pagina=nil)
@@ -86,6 +86,33 @@ class Noticia < ActiveRecord::Base
 
   def self.obter_noticias_da_pagina(pagina)
     $redis.get("noticias_pagina_#{pagina}")
+  end
+
+  def self.pesquisar_no_elasticsearch(query, from)
+
+    puts '==============='
+    puts from
+    puts '==============='
+
+    if (from.blank?)
+      from = 0.to_s
+    else
+      from = (from * LIMITE_NOTICIAS_POR_PAGINA).to_s
+    end
+
+    url_completa = ENDERECO_NOTICIAS_ELASTICSEARCH + "_search?q=#{query}&size=" + LIMITE_NOTICIAS_POR_PAGINA.to_s + "&from=#{from}"
+
+    response = HTTParty.get(url_completa, {
+        :body => '{"sort": [{ "id": { "order": "desc" } } ] }'
+    })
+
+    noticias = Array.new
+
+    JSON.parse(response.body)['hits']['hits'].each do |hit|
+      noticias << Noticia.new(hit['_source'])
+    end
+
+    noticias
   end
 
 end

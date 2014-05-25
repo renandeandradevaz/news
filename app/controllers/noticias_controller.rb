@@ -2,35 +2,20 @@ class NoticiasController < ApplicationController
   before_action :set_noticia, only: [:show, :edit, :update]
   before_action :authenticate_user!, only: [:new, :edit, :create, :update]
 
-
-=begin
-
-    #PESQUISA ELASTICSEARCH
-
-    query = 'carro'
-
-    response = HTTParty.get(Noticia::ENDERECO_NOTICIAS_ELASTICSEARCH + "_search?q=#{query}&size=25&from=0", {
-        :body => '{"sort": [{ "id": { "order": "desc" } } ] }'
-    })
-
-    @noticias = Array.new
-
-    JSON.parse(response.body)['hits']['hits'].each do |hit|
-      @noticias << Noticia.new(hit['_source'])
-    end
-=end
-
-
   def index
-    obter_noticias
+
+    query = params[:query]
+
+    if query.blank?
+      obter_noticias
+    else
+      @noticias = Noticia.pesquisar_no_elasticsearch(query, params[:pagina_pesquisa])
+      render "search.js.erb"
+    end
   end
 
   def carregar_mais
     obter_noticias
-  end
-
-  def obter_noticias
-    @noticias = Noticia.obter_noticias params[:pagina]
   end
 
   def show
@@ -69,5 +54,9 @@ class NoticiasController < ApplicationController
 
   def noticia_params
     params.require(:noticia).permit(:titulo, :corpo)
+  end
+
+  def obter_noticias
+    @noticias = Noticia.obter_noticias params[:pagina]
   end
 end

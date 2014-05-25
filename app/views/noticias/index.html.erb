@@ -1,16 +1,25 @@
+<div id="index">
 
-<div id="noticias">
+  <form action="/noticias" data-remote="true">
+    <input type="hidden" name="pagina_pesquisa" id="pagina_pesquisa" value="1">
+    <input type="text" name="query" id='query'>
+    <input type="submit" value="<%= t(:pesquisar) %>">
+  </form>
 
-  <% @noticias.each do |noticia| %>
 
-      <h2 id='<%= noticia.url %>'> <a href="noticias/<%= noticia.url %>">  <%= noticia.titulo %> </a> </h2>
+  <div id="noticias">
 
-  <% end %>
+    <% @noticias.each do |noticia| %>
+
+        <h2 id='<%= noticia.url %>'><a href="noticias/<%= noticia.url %>">  <%= noticia.titulo %> </a></h2>
+
+    <% end %>
+
+  </div>
+
+  <form id="carregar_mais" action="/noticias/carregar_mais" data-remote="true">
+    <input type="hidden" name="pagina" id="pagina" value="2">
+    <input type="submit" value="<%= t(:carregar_mais) %>">
+  </form>
 
 </div>
-
-
-<form action="/noticias/carregar_mais" data-remote="true">
-  <input type="hidden" name="pagina" id="pagina" value="2">
-  <input type="submit" value="<%= t(:carregar_mais) %>" >
-</form>

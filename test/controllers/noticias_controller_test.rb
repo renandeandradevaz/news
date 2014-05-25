@@ -6,7 +6,7 @@ class NoticiasControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
-    get :index
+    get :search
     assert_response :success
     assert_not_nil assigns(:noticias)
   end

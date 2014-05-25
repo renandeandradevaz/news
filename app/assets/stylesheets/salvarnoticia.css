@@ -1,0 +1,30 @@
+.form_salvar_noticia input,textarea{
+
+    width: 100%;
+}
+
+.form_salvar_noticia input{
+
+    height: 3em;
+}
+
+.form_salvar_noticia textarea{
+
+    height: 10em;
+}
+
+@media screen and (min-width: 481px) {
+
+    .form_salvar_noticia input[type="submit"]{
+
+        width: auto;
+    }
+}
+
+@media screen and (max-width: 480px) {
+
+    .form_salvar_noticia input[type="submit"]{
+
+        width: 100%;
+    }
+}

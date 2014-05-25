@@ -1,0 +1,12 @@
+<p>
+  <strong>Titulo:</strong>
+  <%= @noticia.titulo %>
+</p>
+
+<p>
+  <strong>Corpo:</strong>
+  <%= simple_format(@noticia.corpo) %>
+
+</p>
+
+<%= link_to 'Inicio', noticias_path %>

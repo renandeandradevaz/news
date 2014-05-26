@@ -60,7 +60,7 @@ class Noticia < ActiveRecord::Base
     if pagina.blank?
       pagina = 1
     else
-      pagina = pagina.to_i
+      pagina = pagina.to_i + 1
     end
 
     if pagina > LIMITE_PAGINAS_NO_CACHE
@@ -93,7 +93,7 @@ class Noticia < ActiveRecord::Base
     if (from.blank?)
       from = 0.to_s
     else
-      from = (from * LIMITE_NOTICIAS_POR_PAGINA).to_s
+      from = ((from.to_i - 1) * LIMITE_NOTICIAS_POR_PAGINA).to_s
     end
 
     url_completa = ENDERECO_NOTICIAS_ELASTICSEARCH + "_search?q=#{query}&size=" + LIMITE_NOTICIAS_POR_PAGINA.to_s + "&from=#{from}"

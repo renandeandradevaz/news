@@ -3,19 +3,31 @@ class NoticiasController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :create, :update]
 
   def index
-
     query = params[:query]
+    @pagina = params[:pagina]
 
     if query.blank?
-      obter_noticias
+
+      @noticias = Noticia.obter_noticias @pagina
+
+      if @pagina.present?
+        render_index_js
+      end
+
     else
-      @noticias = Noticia.pesquisar_no_elasticsearch(query, params[:pagina_pesquisa])
-      render "search.js.erb"
+      @noticias = Noticia.pesquisar_no_elasticsearch(query, @pagina)
+      @query = query
     end
   end
 
-  def carregar_mais
-    obter_noticias
+  def render_index_js
+    render "index.js.erb"
+  end
+
+  def search
+    params[:pagina] = 1
+    index
+    render_index_js
   end
 
   def show
@@ -54,9 +66,5 @@ class NoticiasController < ApplicationController
 
   def noticia_params
     params.require(:noticia).permit(:titulo, :corpo)
-  end
-
-  def obter_noticias
-    @noticias = Noticia.obter_noticias params[:pagina]
   end
 end

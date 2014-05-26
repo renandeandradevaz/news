@@ -4,15 +4,10 @@
   <input type="submit" value="<%= t(:pesquisar) %>">
 </form>
 
-
 <div id="noticias">
-
   <% @noticias.each do |noticia| %>
-
       <h2 id='<%= noticia.url %>'><a href="noticias/<%= noticia.url %>">  <%= noticia.titulo %> </a></h2>
-
   <% end %>
-
 </div>
 
 <form action="/noticias" data-remote="true">

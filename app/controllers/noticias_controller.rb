@@ -3,10 +3,10 @@ class NoticiasController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :create, :update]
 
   def index
-    query = params[:query]
+    @query = params[:query]
     @pagina = params[:pagina]
 
-    if query.blank?
+    if @query.blank?
 
       @noticias = Noticia.obter_noticias @pagina
 
@@ -15,8 +15,7 @@ class NoticiasController < ApplicationController
       end
 
     else
-      @noticias = Noticia.pesquisar_no_elasticsearch(query, @pagina)
-      @query = query
+      @noticias = Noticia.pesquisar_no_elasticsearch(@query, @pagina)
     end
   end
 

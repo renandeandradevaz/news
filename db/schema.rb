@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140524194843) do
+ActiveRecord::Schema.define(version: 20140524194844) do
 
   create_table "noticias", force: true do |t|
     t.string   "titulo"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20140524194843) do
     t.datetime "updated_at"
     t.string   "url"
     t.boolean  "indexado_no_elasticsearch"
+    t.string   "categoria"
   end
 
   create_table "users", force: true do |t|

@@ -16,3 +16,5 @@ end
 gem 'devise'
 gem 'httparty', git: 'git://github.com/jnunemaker/httparty.git'
 gem 'redis', :git => 'https://github.com/redis/redis-rb'
+gem 'nokogiri'
+gem 'whenever'

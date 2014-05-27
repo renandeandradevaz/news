@@ -4,7 +4,7 @@ class Noticia < ActiveRecord::Base
   self.table_name = "noticias"
 
   ENDERECO_NOTICIAS_ELASTICSEARCH = "http://localhost:9200/noticias/"
-  LIMITE_NOTICIAS_POR_PAGINA = 1
+  LIMITE_NOTICIAS_POR_PAGINA = 5
   LIMITE_PAGINAS_NO_CACHE = 4
 
   def after_save
@@ -28,6 +28,7 @@ class Noticia < ActiveRecord::Base
           :body => {"titulo" => self.titulo,
                     "corpo" => self.corpo,
                     "url" => self.url,
+                    "categoria" => self.categoria,
                     "id" => self.id
           }.to_json
       }
@@ -111,4 +112,34 @@ class Noticia < ActiveRecord::Base
     noticias
   end
 
+  def self.procura_noticias
+
+    require 'rss'
+    require 'nokogiri'
+
+    RSS::Parser.parse(HTTParty.get('http://g1.globo.com/dynamo/rss2.xml').body).items.each do |item|
+
+      if (Noticia.where(:titulo => item.title).count == 0)
+
+        noticia = Noticia.new
+        noticia.titulo = item.title
+        noticia.categoria = item.category.content
+        noticia.corpo = obter_corpo_da_noticia(item)
+        noticia.save
+      end
+    end
+  end
+
+  def self.obter_corpo_da_noticia(item)
+
+    doc = Nokogiri::Slop(HTTParty.get(item.link).body)
+
+    doc.css('script').remove
+    doc.css('style').remove
+    doc.xpath("//@*[starts-with(name(),'on')]").remove
+
+    doc.css('#materia-letra p').text
+  end
 end
+
+

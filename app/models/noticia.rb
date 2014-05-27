@@ -1,3 +1,5 @@
+#coding: utf-8
+
 class Noticia < ActiveRecord::Base
   after_save :after_save
 
@@ -14,10 +16,21 @@ class Noticia < ActiveRecord::Base
   end
 
   def definir_url
-
-    url = self.id.to_s + '-' + self.titulo.gsub(' ', '-')
-
+    url = self.titulo
+    url = remover_todos_acentos_da_url(url)
+    url = remover_caracteres_nao_validos_para_links(url)
+    url = self.id.to_s + '-' + url.gsub(' ', '-').gsub(',', '')
     self.update_column("url", url)
+  end
+
+  def remover_todos_acentos_da_url(url)
+    url.tr(
+        "ÀÁÂÃÄÅàáâãäåĀāĂăĄąÇçĆćĈĉĊċČčÐðĎďĐđÈÉÊËèéêëĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħÌÍÎÏìíîïĨĩĪīĬĭĮįİıĴĵĶķĸĹĺĻļĽľĿŀŁłÑñŃńŅņŇňŉŊŋÒÓÔÕÖØòóôõöøŌōŎŏŐőŔŕŖŗŘřŚśŜŝŞşŠšſŢţŤťŦŧÙÚÛÜùúûüŨũŪūŬŭŮůŰűŲųŴŵÝýÿŶŷŸŹźŻżŽž",
+        "AAAAAAaaaaaaAaAaAaCcCcCcCcCcDdDdDdEEEEeeeeEeEeEeEeEeGgGgGgGgHhHhIIIIiiiiIiIiIiIiIiJjKkkLlLlLlLlLlNnNnNnNnnNnOOOOOOooooooOoOoOoRrRrRrSsSsSsSssTtTtTtUUUUuuuuUuUuUuUuUuUuWwYyyYyYZzZzZz")
+  end
+
+  def remover_caracteres_nao_validos_para_links(url)
+    url.tr('^A-Za-z0-9 \-', '')
   end
 
   def indexar_no_elasticsearch

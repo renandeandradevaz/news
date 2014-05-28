@@ -1,5 +1,3 @@
-#coding: utf-8
-
 class Noticia < ActiveRecord::Base
   after_save :after_save
 
@@ -17,20 +15,10 @@ class Noticia < ActiveRecord::Base
 
   def definir_url
     url = self.titulo
-    url = self.remover_todos_acentos(url)
-    url = self.remover_caracteres_nao_validos_para_links(url)
+    url = UtilString.remover_todos_acentos(url)
+    url = UtilString.remover_caracteres_nao_validos_para_links(url)
     url = self.id.to_s + '-' + url.gsub!(' ', '-')
     self.update_column("url", url)
-  end
-
-  def self.remover_todos_acentos(string)
-    string.tr(
-        "ÀÁÂÃÄÅàáâãäåĀāĂăĄąÇçĆćĈĉĊċČčÐðĎďĐđÈÉÊËèéêëĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħÌÍÎÏìíîïĨĩĪīĬĭĮįİıĴĵĶķĸĹĺĻļĽľĿŀŁłÑñŃńŅņŇňŉŊŋÒÓÔÕÖØòóôõöøŌōŎŏŐőŔŕŖŗŘřŚśŜŝŞşŠšſŢţŤťŦŧÙÚÛÜùúûüŨũŪūŬŭŮůŰűŲųŴŵÝýÿŶŷŸŹźŻżŽž",
-        "AAAAAAaaaaaaAaAaAaCcCcCcCcCcDdDdDdEEEEeeeeEeEeEeEeEeGgGgGgGgHhHhIIIIiiiiIiIiIiIiIiJjKkkLlLlLlLlLlNnNnNnNnnNnOOOOOOooooooOoOoOoRrRrRrSsSsSsSssTtTtTtUUUUuuuuUuUuUuUuUuUuWwYyyYyYZzZzZz")
-  end
-
-  def self.remover_caracteres_nao_validos_para_links(url)
-    url.tr('^A-Za-z0-9 ', '')
   end
 
   def indexar_no_elasticsearch
@@ -113,7 +101,7 @@ class Noticia < ActiveRecord::Base
     url_completa = ENDERECO_NOTICIAS_ELASTICSEARCH + "_search?q=#{query}&size=" + LIMITE_NOTICIAS_POR_PAGINA.to_s + "&from=#{from}"
 
     url_completa.gsub!(" ", "%20")
-    url_completa = self.remover_todos_acentos(url_completa)
+    url_completa = UtilString.remover_todos_acentos(url_completa)
 
     response = HTTParty.get(url_completa)
 

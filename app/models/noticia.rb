@@ -17,19 +17,19 @@ class Noticia < ActiveRecord::Base
 
   def definir_url
     url = self.titulo
-    url = remover_todos_acentos_da_url(url)
-    url = remover_caracteres_nao_validos_para_links(url)
+    url = self.remover_todos_acentos(url)
+    url = self.remover_caracteres_nao_validos_para_links(url)
     url = self.id.to_s + '-' + url.gsub!(' ', '-')
     self.update_column("url", url)
   end
 
-  def remover_todos_acentos_da_url(url)
-    url.tr(
+  def self.remover_todos_acentos(string)
+    string.tr(
         "ÀÁÂÃÄÅàáâãäåĀāĂăĄąÇçĆćĈĉĊċČčÐðĎďĐđÈÉÊËèéêëĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħÌÍÎÏìíîïĨĩĪīĬĭĮįİıĴĵĶķĸĹĺĻļĽľĿŀŁłÑñŃńŅņŇňŉŊŋÒÓÔÕÖØòóôõöøŌōŎŏŐőŔŕŖŗŘřŚśŜŝŞşŠšſŢţŤťŦŧÙÚÛÜùúûüŨũŪūŬŭŮůŰűŲųŴŵÝýÿŶŷŸŹźŻżŽž",
         "AAAAAAaaaaaaAaAaAaCcCcCcCcCcDdDdDdEEEEeeeeEeEeEeEeEeGgGgGgGgHhHhIIIIiiiiIiIiIiIiIiJjKkkLlLlLlLlLlNnNnNnNnnNnOOOOOOooooooOoOoOoRrRrRrSsSsSsSssTtTtTtUUUUuuuuUuUuUuUuUuUuWwYyyYyYZzZzZz")
   end
 
-  def remover_caracteres_nao_validos_para_links(url)
+  def self.remover_caracteres_nao_validos_para_links(url)
     url.tr('^A-Za-z0-9 ', '')
   end
 
@@ -112,9 +112,10 @@ class Noticia < ActiveRecord::Base
 
     url_completa = ENDERECO_NOTICIAS_ELASTICSEARCH + "_search?q=#{query}&size=" + LIMITE_NOTICIAS_POR_PAGINA.to_s + "&from=#{from}"
 
-    response = HTTParty.get(url_completa, {
-        :body => '{"sort": [{ "id": { "order": "desc" } } ] }'
-    })
+    url_completa.gsub!(" ", "%20")
+    url_completa = self.remover_todos_acentos(url_completa)
+
+    response = HTTParty.get(url_completa)
 
     noticias = Array.new
 

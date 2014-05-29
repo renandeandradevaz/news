@@ -1,17 +1,26 @@
-<form action="/noticias/search" data-remote="true">
-  <%= render 'pagina_hidden' %>
-  <input type="text" name="query" class="query" >
-  <input type="submit" value="<%= t(:pesquisar) %>">
-</form>
+<div id="pesquisar-container">
+  <form action="/noticias/search" data-remote="true" >
+    <%= render 'pagina_hidden' %>
+    <input type="text" name="query" class="query" placeholder="<%= t(:pesquise_aqui) %>">
+    <input type="submit" class="botao botao-pesquisar" value="<%= t(:pesquisar) %>">
+  </form>
+</div>
 
 <div id="noticias">
   <% @noticias.each do |noticia| %>
-      <h2 id='<%= noticia.url %>'><a href="noticias/<%= noticia.url %>">  <%= noticia.titulo %> </a></h2>
+      <a href="noticias/<%= noticia.url %>">
+        <h2 id='<%= noticia.url %>' class="noticia">
+          <%= noticia.titulo %>
+        </h2>
+      </a>
+
   <% end %>
 </div>
 
-<form action="/noticias" data-remote="true">
-  <%= render 'pagina_hidden' %>
-  <input type="hidden" name="query" class="query" >
-  <input type="submit" value="<%= t(:carregar_mais) %>">
-</form>
+<div id="carregar-mais-container">
+  <form action="/noticias" data-remote="true">
+    <%= render 'pagina_hidden' %>
+    <input type="hidden" name="query" class="query">
+    <input type="submit" id="carregar-mais" class="botao" value="<%= t(:carregar_mais) %>">
+  </form>
+</div>

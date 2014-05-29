@@ -4,7 +4,7 @@ class Noticia < ActiveRecord::Base
   self.table_name = "noticias"
 
   ENDERECO_NOTICIAS_ELASTICSEARCH = "http://localhost:9200/noticias/"
-  LIMITE_NOTICIAS_POR_PAGINA = 5
+  LIMITE_NOTICIAS_POR_PAGINA = 25
   LIMITE_PAGINAS_NO_CACHE = 4
 
   def after_save

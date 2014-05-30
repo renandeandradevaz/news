@@ -149,9 +149,14 @@ class Noticia < ActiveRecord::Base
     categorias_json = $redis.get("categorias")
 
     if categorias_json.blank?
-      categorias_json = Noticia.order(:categoria).select(:categoria).distinct.to_json
+      categorias = Noticia.order(:categoria).select(:categoria).distinct
+      categorias_array = Array.new
+      categorias.each do |categoria|
+        categorias_array << categoria.categoria
+      end
+      categorias_json = categorias_array.to_json
       $redis.set("categorias", categorias_json)
-    end
+  end
 
     categorias_json
   end

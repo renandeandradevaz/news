@@ -15,15 +15,11 @@
       </div>
     </div>
 </a>
-<div id='menu-container'>
-    <div id="menu"> ☰ </div>
-    <select id="selecione-categoria">
-      <option selected> Selecione uma categoria </option>
-    </select>
-</div>
+
+<%= yield :menu %>
 
 <div id="conteudo">
-    <%= yield %>
+  <%= yield %>
 </div>
 
 <div id="rodape">

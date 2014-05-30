@@ -17,10 +17,16 @@ Redis sendo responsável por guardar o cache das notícias mais acessadas.
 Design responsivo e minimalista para funcionar bem em dispositivos móveis com internet lenta.
 
 
+
+
 Como instalar:
 
 Instalar mysql, redis e elasticsearch.
+
 Rodar o comando dentro da pasta do app:
+
 whenever --update-crontab
+
 OU
+
 whenever --update-crontab --set environment=development

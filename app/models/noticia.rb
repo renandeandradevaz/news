@@ -11,6 +11,7 @@ class Noticia < ActiveRecord::Base
     definir_url
     indexar_no_elasticsearch
     Noticia.salvar_no_redis
+    Noticia.listar_categorias
   end
 
   def definir_url
@@ -142,6 +143,19 @@ class Noticia < ActiveRecord::Base
 
     doc.css('#materia-letra p').text
   end
+
+  def self.listar_categorias
+
+    categorias_json = $redis.get("categorias")
+
+    if categorias_json.blank?
+      categorias_json = Noticia.order(:categoria).select(:categoria).distinct.to_json
+      $redis.set("categorias", categorias_json)
+    end
+
+    categorias_json
+  end
+
 end
 
 

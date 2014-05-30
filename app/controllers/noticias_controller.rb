@@ -23,10 +23,14 @@ class NoticiasController < ApplicationController
     render "index.js.erb"
   end
 
-  def search
+  def pesquisar
     params[:pagina] = 1
     index
     render_index_js
+  end
+
+  def listar_categorias
+    render :json => Noticia.listar_categorias
   end
 
   def show

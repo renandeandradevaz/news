@@ -4,23 +4,35 @@
   <title>News - <%= @title %> </title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= stylesheet_link_tag    "application", media: "all" %>
-  <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
 <a href="/" class="link-topo">
     <div id="topo">
-      <h1> news </h1>
+      <div id="titulo-container">
+        <span id="titulo"> news </span>
+      </div>
     </div>
 </a>
+<div id='menu-container'>
+    <div id="menu"> ☰ </div>
+    <select id="selecione-categoria">
+      <option selected> Selecione uma categoria </option>
+    </select>
+</div>
 
 <div id="conteudo">
     <%= yield %>
 </div>
 
-<br><br><br><br>
-<p> rodapé aqui </p>
+<div id="rodape">
+  <h3> As notícias são obtidas através do <a href="http://g1.globo.com/"> g1.com.br </a> </h3>
+  <h3> Este sistema foi desenvolvido por <a href="https://sites.google.com/site/renandeandradevaz"> Renan Vaz </a> </h3>
+  <h3> <a href="https://github.com/renandeandradevaz/news"> Link para o código do projeto no github </a> </h3>
+</div>
+
+<%= javascript_include_tag "application" %>
 
 </body>
 </html>

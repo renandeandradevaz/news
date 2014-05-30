@@ -4,13 +4,51 @@ body{
 }
 
 #topo{
-    text-align: center;
-    padding-top: 0.1%;
-    padding-bottom: 0.1%;
+    padding-top: 2%;
     background-color: rgb(33, 95, 33);
     color: white;
     font-family: Verdana;
+}
+
+#menu-container{
+    color: white;
+    background-color: rgb(33, 95, 33);
     border-bottom: green 3px solid;
+    cursor: pointer;
+}
+
+#titulo{
+    font-weight: bold;
+}
+
+#titulo-container{
+    text-align: center;
+}
+
+#menu{
+    padding-left: 1%;
+    width: 10%;
+}
+
+#selecione-categoria{
+    display: none;
+    padding: 0.5em;
+    border-radius: 5px;
+    font-size: 1em;
+    background-color: white;
+}
+
+#rodape{
+    margin-top: 5em;
+    text-align: right;
+    padding: 1%;
+    background-color: rgb(71, 94, 71);
+    color: white;
+    font-family: Verdana;
+}
+
+#rodape a{
+    color: rgb(176, 225, 231);
 }
 
 .link-topo{
@@ -94,22 +132,34 @@ body{
 }
 
 @media screen and (min-width: 481px) {
-    h1{
+    #titulo{
         font-size: 5em;
+    }
+    #menu{
+        font-size: 2.5em;
     }
 }
 
 @media screen and (max-width: 480px) {
-    h1{
+    #titulo{
         font-size: 2em;
     }
     h2{
         font-size: 1em;
+    }
+    h3{
+        font-size: 0.7em;
     }
     .query{
         width: 60%;
     }
     .botao-pesquisar{
         width: 30%;
+    }
+    #menu{
+        font-size: 1.7em;
+    }
+    #selecione-categoria{
+        width: 100%;
     }
 }

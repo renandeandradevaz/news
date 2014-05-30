@@ -4,9 +4,7 @@
 $(document).ready(function(){
 
     $('#menu').on('click', function(e){
-
-        e.preventDefault();
-
+        
         $('#menu').text('');
         $('#selecione-categoria').show();
 

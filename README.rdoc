@@ -25,8 +25,4 @@ Instalar mysql, redis e elasticsearch.
 
 Rodar o comando dentro da pasta do app:
 
-whenever --update-crontab
-
-OU
-
-whenever --update-crontab --set environment=development
+whenever -i

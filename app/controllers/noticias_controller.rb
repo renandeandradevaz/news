@@ -16,10 +16,9 @@ class NoticiasController < ApplicationController
     else
       @noticias = Noticia.obter_noticias @pagina
       if @pagina.present?
-        render json: @noticias
+        render_index_js
       end
     end
-
   end
 
   def render_index_js

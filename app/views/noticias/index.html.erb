@@ -30,10 +30,10 @@
 </div>
 
 <div id="carregar-mais-container">
-  <form action="/noticias" >
+  <form action="/noticias" data-remote="true">
     <%= render 'pagina_hidden' %>
     <input type="hidden" name="query" class="query">
     <%= render 'categoria_hidden' %>
-    <input id="carregar-mais" class="botao" value="<%= t(:carregar_mais) %>">
+    <input type="submit" id="carregar-mais" class="botao" value="<%= t(:carregar_mais) %>">
   </form>
 </div>

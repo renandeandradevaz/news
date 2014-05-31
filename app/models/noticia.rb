@@ -3,8 +3,7 @@ class Noticia < ActiveRecord::Base
 
   self.table_name = "noticias"
 
-  ENDERECO_NOTICIAS_ELASTICSEARCH = "http://localhost:9200/noticias/"
-  LIMITE_NOTICIAS_POR_PAGINA = z
+  LIMITE_NOTICIAS_POR_PAGINA = 25
   LIMITE_PAGINAS_NO_CACHE = 4
 
   def after_save
@@ -26,15 +25,8 @@ class Noticia < ActiveRecord::Base
     indexado_no_elasticsearch = false
 
     begin
-      response = HTTParty.post(ENDERECO_NOTICIAS_ELASTICSEARCH + "noticia/#{self.id}", {
-          :body => {"titulo" => self.titulo,
-                    "corpo" => self.corpo,
-                    "url" => self.url,
-                    "categoria" => self.categoria,
-                    "id" => self.id
-          }.to_json
-      }
-      )
+      response = UtilElasticsearch.indexar(self.id, self.titulo, self.corpo, self.url, self.categoria)
+
       if response.code == 200 or response.code == 201
         indexado_no_elasticsearch = true
       end
@@ -55,7 +47,7 @@ class Noticia < ActiveRecord::Base
 
   def self.buscar_noticias_do_banco(pagina)
     offset = pagina - 1
-    Noticia.select(:titulo, :url).order(id: :desc).limit(LIMITE_NOTICIAS_POR_PAGINA).offset(LIMITE_NOTICIAS_POR_PAGINA * offset)
+    Noticia.select(:id, :titulo, :url).order(id: :desc).limit(LIMITE_NOTICIAS_POR_PAGINA).offset(LIMITE_NOTICIAS_POR_PAGINA * offset)
   end
 
   def self.obter_noticias(pagina=nil)
@@ -93,19 +85,19 @@ class Noticia < ActiveRecord::Base
 
   def self.pesquisar_no_elasticsearch(query, from)
 
-    if (from.blank?)
-      from = 0.to_s
-    else
-      from = ((from.to_i - 1) * LIMITE_NOTICIAS_POR_PAGINA).to_s
-    end
+    response = UtilElasticsearch.pesquisar(query, from)
 
-    url_completa = ENDERECO_NOTICIAS_ELASTICSEARCH + "_search?q=#{query}&size=" + LIMITE_NOTICIAS_POR_PAGINA.to_s + "&from=#{from}"
+    preencher_noticias_com_JSON(response)
+  end
 
-    url_completa.gsub!(" ", "%20")
-    url_completa = UtilString.remover_todos_acentos(url_completa)
+  def self.pesquisar_por_categoria(categoria, from)
 
-    response = HTTParty.get(url_completa)
+    response = UtilElasticsearch.pesquisar_por_categoria(categoria, from)
 
+    preencher_noticias_com_JSON(response)
+  end
+
+  def self.preencher_noticias_com_JSON(response)
     noticias = Array.new
 
     JSON.parse(response.body)['hits']['hits'].each do |hit|

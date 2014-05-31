@@ -17,7 +17,7 @@ class Noticia < ActiveRecord::Base
   def definir_url
     url = self.titulo
     url = UtilString.remover_todos_acentos(url)
-    url = UtilString.remover_caracteres_nao_validos_para_links(url)
+    url = UtilString.manter_somente_letras_numeros_e_espacos(url)
     url = self.id.to_s + '-' + url.gsub!(' ', '-')
     self.update_column("url", url)
   end

@@ -1,3 +1,5 @@
+require "base64"
+
 class UtilElasticsearch
 
   ENDERECO_NOTICIAS_ELASTICSEARCH = "http://localhost:9200/noticias/"
@@ -8,7 +10,7 @@ class UtilElasticsearch
         :body => {"titulo" => titulo,
                   "corpo" => corpo,
                   "url" => url,
-                  "categoria" => categoria,
+                  "categoria" => UtilString.manter_somente_letras_e_numeros(Base64.encode64(categoria)),
                   "id" => id
         }.to_json
     }
@@ -37,7 +39,7 @@ class UtilElasticsearch
     url_completa = UtilString.remover_todos_acentos(url_completa)
 
     response = HTTParty.get(url_completa, {
-        :body => '{"query": {"query_string": {"query": "' + categoria + '","fields": ["categoria2"]}}}'
+        :body => '{"query": {"query_string": {"query": "' + UtilString.manter_somente_letras_e_numeros(Base64.encode64(categoria)) + '","fields": ["categoria"]}}}'
     })
 
     response

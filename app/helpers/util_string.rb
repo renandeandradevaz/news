@@ -7,8 +7,12 @@ class UtilString
         "AAAAAAaaaaaaAaAaAaCcCcCcCcCcDdDdDdEEEEeeeeEeEeEeEeEeGgGgGgGgHhHhIIIIiiiiIiIiIiIiIiJjKkkLlLlLlLlLlNnNnNnNnnNnOOOOOOooooooOoOoOoRrRrRrSsSsSsSssTtTtTtUUUUuuuuUuUuUuUuUuUuWwYyyYyYZzZzZz")
   end
 
-  def self.remover_caracteres_nao_validos_para_links(string)
+  def self.manter_somente_letras_numeros_e_espacos(string)
     string.tr('^A-Za-z0-9 ', '')
+  end
+
+  def self.manter_somente_letras_e_numeros(string)
+    string.tr('^A-Za-z0-9', '')
   end
 
 end

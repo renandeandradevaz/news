@@ -33,6 +33,13 @@ class NoticiasController < ApplicationController
     render :json => Noticia.listar_categorias
   end
 
+  def pesquisar_por_categoria
+    @categoria = params[:categoria]
+    @pagina = 1
+    @noticias = Noticia.pesquisar_por_categoria(@categoria, @pagina)
+    render_index_js
+  end
+
   def show
     @title = @noticia.titulo
   end

@@ -1,15 +1,18 @@
 <% content_for :menu do %>
     <div id='menu-container'>
       <div id="menu"> ☰</div>
-      <select id="selecione-categoria">
-        <option selected> Selecione uma categoria</option>
-      </select>
+      <form action="/noticias/pesquisar_por_categoria" data-remote="true">
+        <select id="selecione-categoria" name="categoria">
+          <option selected value=""> Selecione uma categoria</option>
+        </select>
+      </form>
     </div>
 <% end %>
 
 <div id="pesquisar-container">
   <form action="/noticias/pesquisar" data-remote="true">
     <%= render 'pagina_hidden' %>
+    <%= render 'categoria_hidden' %>
     <input type="text" name="query" class="query" placeholder="<%= t(:pesquise_aqui) %>">
     <input type="submit" class="botao botao-pesquisar" value="<%= t(:pesquisar) %>">
   </form>
@@ -18,7 +21,7 @@
 <div id="noticias">
   <% @noticias.each do |noticia| %>
       <a href="noticias/<%= noticia.url %>">
-        <h2 id='<%= noticia.url %>' class="noticia">
+        <h2 id='<%= noticia.id %>' class="noticia">
           <%= noticia.titulo %>
         </h2>
       </a>
@@ -30,6 +33,7 @@
   <form action="/noticias" data-remote="true">
     <%= render 'pagina_hidden' %>
     <input type="hidden" name="query" class="query">
+    <%= render 'categoria_hidden' %>
     <input type="submit" id="carregar-mais" class="botao" value="<%= t(:carregar_mais) %>">
   </form>
 </div>

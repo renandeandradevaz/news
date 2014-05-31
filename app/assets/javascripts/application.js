@@ -23,8 +23,9 @@ $(document).ready(function(){
 
     $('#selecione-categoria').on('change', function(){
 
-        alert('afdasf');
+        var categoria = $(this).find("option:selected").val();
+        $('.categoria').val(categoria);
+        $('#selecione-categoria').submit();
     });
 });
-
 

@@ -1,20 +1,17 @@
-<% if @query.present? %>
-
+<% if @query.present? or @categoria.present? %>
     <% if @pagina == 1 %>
         $('#noticias').empty();
     <% end %>
+<% end %>
 
-    $('.query').each(function () {
-        $(this).val('<%= @query %>');
-    });
+<% if @query.present? %>
+    $('.query').val('<%= @query %>');
 <% end %>
 
 <% @noticias.each do |noticia| %>
-    if ($('#<%= noticia.url %>').length == 0) {
-        $('#noticias').append("<a href='noticias/<%= noticia.url %>'> <h2 id='<%= noticia.url %>' class='noticia'> <%= noticia.titulo %> </h2> </a>");
+    if ($('#<%= noticia.id %>').length == 0) {
+        $('#noticias').append("<a href='noticias/<%= noticia.url %>'> <h2 id='<%= noticia.id %>' class='noticia'> <%= noticia.titulo %> </h2> </a>");
     }
 <% end %>
 
-$('.pagina').each(function () {
-    $(this).val('<%= @pagina.to_i + 1 %>');
-});
+$('.pagina').val('<%= @pagina.to_i + 1 %>');

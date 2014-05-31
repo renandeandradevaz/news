@@ -25,4 +25,4 @@ Instalar mysql, redis e elasticsearch.
 
 Rodar o comando dentro da pasta do app:
 
-whenever -i
+whenever -i --set environment=development  (ou production)

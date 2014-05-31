@@ -27,5 +27,27 @@ $(document).ready(function(){
         $('.categoria').val(categoria);
         $('#selecione-categoria').submit();
     });
+
+
+    $('#carregar-mais').on('click', function(e){
+
+            $.ajax({
+                url: "/noticias",
+                data:{
+                  pagina: $('.pagina').val()
+                },
+                success: function( noticia ) {
+
+                    noticia = noticia[0];
+
+                    if ($("#" + noticia.id).length == 0) {
+                        $('#noticias').append("<a href='" + noticia.url +"'> <h2 id='"+ noticia.id + "' class='noticia'> " + noticia.titulo + " </h2> </a>");
+                    }
+
+                    $('.pagina').val(parseInt($('.pagina').get(0).value) + 1);
+                }
+            });
+    });
 });
+
 

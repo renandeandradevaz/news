@@ -5,17 +5,19 @@ class NoticiasController < ApplicationController
   def index
     @query = params[:query]
     @pagina = params[:pagina]
+    @categoria = params[:categoria]
 
-    if @query.blank?
+    if @query.present?
+      @noticias = Noticia.pesquisar_no_elasticsearch(@query, @pagina)
 
+    elsif @categoria.present?
+      @noticias = Noticia.pesquisar_por_categoria(@categoria, @pagina)
+
+    else
       @noticias = Noticia.obter_noticias @pagina
-
       if @pagina.present?
         render_index_js
       end
-
-    else
-      @noticias = Noticia.pesquisar_no_elasticsearch(@query, @pagina)
     end
   end
 
@@ -77,4 +79,5 @@ class NoticiasController < ApplicationController
   def noticia_params
     params.require(:noticia).permit(:titulo, :corpo, :categoria)
   end
+
 end

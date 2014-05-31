@@ -1,18 +1,10 @@
-<p>
-  <strong>Titulo:</strong>
-  <%= @noticia.titulo %>
-</p>
+<h1 class="centralizado show-titulo"> <%= @noticia.titulo %> </h1>
 
-<p>
-  <strong>Categoria:</strong>
-  <%= simple_format(@noticia.categoria) %>
+<div class="informacoes-adicionais">
+  <p> <%= @noticia.categoria %> </p>
+  <p> <%= formatar_data(@noticia.created_at) %> </p>
+</div>
 
-</p>
-
-<p>
-  <strong>Corpo:</strong>
+<div class="corpo">
   <%= simple_format(@noticia.corpo) %>
-
-</p>
-
-<%= link_to 'Inicio', noticias_path %>
+</div>

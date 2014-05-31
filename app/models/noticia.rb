@@ -10,6 +10,7 @@ class Noticia < ActiveRecord::Base
     definir_url
     indexar_no_elasticsearch
     Noticia.salvar_no_redis
+    $redis.set("categorias", '')
     Noticia.listar_categorias
   end
 

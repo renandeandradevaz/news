@@ -37,7 +37,7 @@ class UtilElasticsearch
     url_completa = UtilString.remover_todos_acentos(url_completa)
 
     response = HTTParty.get(url_completa, {
-        :body => '{"query": {"query_string": {"query": "' + categoria + '","fields": ["categoria"]}}}'
+        :body => '{"query": {"query_string": {"query": "' + categoria + '","fields": ["categoria2"]}}}'
     })
 
     response

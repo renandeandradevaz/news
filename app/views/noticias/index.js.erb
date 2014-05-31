@@ -9,6 +9,9 @@
 <% end %>
 
 <% @noticias.each do |noticia| %>
+
+    console.log('<%= noticia.to_json %>');
+
     if ($('#<%= noticia.id %>').length == 0) {
         $('#noticias').append("<a href='noticias/<%= noticia.url %>'> <h2 id='<%= noticia.id %>' class='noticia'> <%= noticia.titulo %> </h2> </a>");
     }

@@ -3,7 +3,7 @@ class Noticia < ActiveRecord::Base
 
   self.table_name = "noticias"
 
-  LIMITE_NOTICIAS_POR_PAGINA = 1
+  LIMITE_NOTICIAS_POR_PAGINA = 5
   LIMITE_PAGINAS_NO_CACHE = 4
 
   def after_save
@@ -47,7 +47,7 @@ class Noticia < ActiveRecord::Base
 
   def self.buscar_noticias_do_banco(pagina)
     offset = pagina - 1
-    Noticia.select(:id, :titulo, :url).order(id: :desc).limit(LIMITE_NOTICIAS_POR_PAGINA).offset(LIMITE_NOTICIAS_POR_PAGINA * offset)
+    Noticia.select(:titulo, :url).order(id: :desc).limit(LIMITE_NOTICIAS_POR_PAGINA).offset(LIMITE_NOTICIAS_POR_PAGINA * offset)
   end
 
   def self.obter_noticias(pagina=nil)
@@ -115,9 +115,8 @@ class Noticia < ActiveRecord::Base
     RSS::Parser.parse(HTTParty.get('http://g1.globo.com/dynamo/rss2.xml').body).items.each do |item|
 
       if (Noticia.where(:titulo => item.title).count == 0)
-
         noticia = Noticia.new
-        noticia.titulo = item.title
+        noticia.titulo = item.title.gsub /(?<!\n)\n(?!\n)/, ' '
         noticia.categoria = item.category.content
         noticia.corpo = obter_corpo_da_noticia(item)
         noticia.save

@@ -21,7 +21,7 @@
 <div id="noticias">
   <% @noticias.each do |noticia| %>
       <a href="noticias/<%= noticia.url %>">
-        <h2 id='<%= noticia.id %>' class="noticia">
+        <h2 id='<%= noticia.url %>' class="noticia">
           <%= noticia.titulo %>
         </h2>
       </a>

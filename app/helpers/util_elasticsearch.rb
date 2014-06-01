@@ -19,18 +19,16 @@ class UtilElasticsearch
     response
   end
 
-  def self.pesquisar(query, from)
+  def self.pesquisar(query, from, fields)
 
-    from = definir_limite(from)
+    fields_string = ''
 
-    url_completa = ENDERECO_NOTICIAS_ELASTICSEARCH + "_search?q=#{query}&size=" + Noticia::LIMITE_NOTICIAS_POR_PAGINA.to_s + "&from=#{from}"
-    url_completa.gsub!(" ", "%20")
-    url_completa = UtilString.remover_todos_acentos(url_completa)
-    response = HTTParty.get(url_completa)
-    response
-  end
-
-  def self.pesquisar_por_categoria(categoria, from)
+    fields.each_with_index do |field, index|
+      fields_string += '"' + field + '"'
+      if index != fields.size - 1
+        fields_string += ','
+      end
+    end
 
     from = definir_limite(from)
 
@@ -39,12 +37,11 @@ class UtilElasticsearch
     url_completa = UtilString.remover_todos_acentos(url_completa)
 
     response = HTTParty.get(url_completa, {
-        :body => '{"query": {"query_string": {"query": "' + UtilString.manter_somente_letras_e_numeros(Base64.encode64(categoria)) + '","fields": ["categoria"]}}}'
+        :body => '{"query": {"query_string": {"query": "' + query + '","fields": [' + fields_string + ']}}}'
     })
 
     response
   end
-
 
   def self.definir_limite(from)
     if (from.blank?)

@@ -86,14 +86,14 @@ class Noticia < ActiveRecord::Base
 
   def self.pesquisar_no_elasticsearch(query, from)
 
-    response = UtilElasticsearch.pesquisar(query, from)
+    response = UtilElasticsearch.pesquisar(query, from, ["titulo", "corpo"])
 
     preencher_noticias_com_JSON(response)
   end
 
   def self.pesquisar_por_categoria(categoria, from)
 
-    response = UtilElasticsearch.pesquisar_por_categoria(categoria, from)
+    response = UtilElasticsearch.pesquisar(UtilString.manter_somente_letras_e_numeros(Base64.encode64(categoria)), from, ["categoria"])
 
     preencher_noticias_com_JSON(response)
   end

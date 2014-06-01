@@ -115,9 +115,11 @@ class Noticia < ActiveRecord::Base
 
     RSS::Parser.parse(HTTParty.get('http://g1.globo.com/dynamo/rss2.xml').body).items.each do |item|
 
-      if (Noticia.where(:titulo => item.title).count == 0)
+      titulo = item.title.gsub /(?<!\n)\n(?!\n)/, ' '
+
+      if (Noticia.where(:titulo => titulo).count == 0)
         noticia = Noticia.new
-        noticia.titulo = item.title.gsub /(?<!\n)\n(?!\n)/, ' '
+        noticia.titulo = titulo
         noticia.categoria = item.category.content
         noticia.corpo = obter_corpo_da_noticia(item)
         noticia.save

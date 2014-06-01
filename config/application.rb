@@ -9,6 +9,6 @@ Bundler.require(:default, Rails.env)
 module News
   class Application < Rails::Application
     config.time_zone = 'Brasilia'
-    config.active_record.default_timezone = 'Brasilia'
+    config.active_record.default_timezone = :local
   end
 end

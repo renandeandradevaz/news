@@ -23,6 +23,20 @@ Como instalar:
 
 Instalar mysql, redis e elasticsearch.
 
-Rodar o comando dentro da pasta do app:
+Rodar os comandos dentro da pasta do app:
 
-whenever -i --set environment=development  (ou production)
+whenever -i --set environment=production
+
+
+RAILS_ENV=production rake db:create
+
+
+RAILS_ENV=production rake db:migrate
+
+
+RAILS_ENV=production bundle exec rake assets:precompile
+
+
+puma -e production -p 3001
+
+

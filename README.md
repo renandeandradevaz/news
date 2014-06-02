@@ -39,6 +39,7 @@ RAILS_ENV=production rake db:migrate
 
 ```sh
 RAILS_ENV=production bundle exec rake assets:precompile
+```
 
 ```sh
 puma -e production -p 3001

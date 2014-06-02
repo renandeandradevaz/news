@@ -19,11 +19,11 @@ class UtilElasticsearch
     response
   end
 
-  def self.pesquisar(query, from, fields)
+  def self.pesquisar(query, from, limite, fields)
 
-    from = definir_limite(from)
+    from = definir_limite(from, limite)
 
-    url_completa = ENDERECO_NOTICIAS_ELASTICSEARCH + "_search?size=" + Noticia::LIMITE_NOTICIAS_POR_PAGINA.to_s + "&from=#{from}"
+    url_completa = ENDERECO_NOTICIAS_ELASTICSEARCH + "_search?size=" + limite.to_s + "&from=#{from}"
     url_completa.gsub!(" ", "%20")
     url_completa = UtilString.remover_todos_acentos(url_completa)
 
@@ -34,11 +34,11 @@ class UtilElasticsearch
     response
   end
 
-  def self.definir_limite(from)
+  def self.definir_limite(from, limite)
     if (from.blank?)
       from = 0.to_s
     else
-      from = ((from.to_i - 1) * Noticia::LIMITE_NOTICIAS_POR_PAGINA).to_s
+      from = ((from.to_i - 1) * limite).to_s
     end
     from
   end

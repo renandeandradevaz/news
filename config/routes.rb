@@ -6,6 +6,7 @@ News::Application.routes.draw do
   get "noticias/pesquisar"
   get "noticias/listar_categorias"
   get "noticias/pesquisar_por_categoria"
+  get "noticias/noticias_relacionadas"
 
   resources :noticias
 end

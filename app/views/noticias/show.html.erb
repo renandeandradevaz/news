@@ -2,9 +2,24 @@
 
 <div class="informacoes-adicionais">
   <p> <%= @noticia.categoria %> </p>
+
   <p> <%= formatar_data(@noticia.created_at) %> </p>
 </div>
 
 <div class="corpo">
   <%= simple_format(@noticia.corpo) %>
+
+  <div class="centralizado">
+    <form action="/noticias/noticias_relacionadas" data-remote="true">
+      <input type="hidden" name="titulo" value="<%= @noticia.titulo %>">
+      <input type="submit" class="botao botao-noticias-relacionadas" value="<%= t(:ver_noticias_relacionadas) %>">
+    </form>
+  </div>
+
+  <div id="noticias-relacionadas">
+    <b> <%= t(:noticias_relacionadas) %>: </b>
+    <br>
+
+  </div>
+
 </div>

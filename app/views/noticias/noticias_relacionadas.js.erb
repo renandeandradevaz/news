@@ -1,0 +1,7 @@
+<% @noticias_relacionadas.each do |noticia| %>
+    $('#noticias-relacionadas').append("<a href='/noticias/<%= noticia.url %>'> <%= noticia.titulo %> </a> <br>");
+<% end %>
+
+$('#noticias-relacionadas').show();
+
+$('.botao-noticias-relacionadas').hide();

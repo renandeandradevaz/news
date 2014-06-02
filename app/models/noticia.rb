@@ -3,7 +3,7 @@ class Noticia < ActiveRecord::Base
 
   self.table_name = "noticias"
 
-  LIMITE_NOTICIAS_POR_PAGINA = 5
+  LIMITE_NOTICIAS_POR_PAGINA = 20
   LIMITE_PAGINAS_NO_CACHE = 4
 
   def after_save
@@ -85,16 +85,17 @@ class Noticia < ActiveRecord::Base
   end
 
   def self.pesquisar_no_elasticsearch(query, from)
+    response = UtilElasticsearch.pesquisar(query, from, LIMITE_NOTICIAS_POR_PAGINA, ["titulo", "corpo"])
+    preencher_noticias_com_JSON(response)
+  end
 
-    response = UtilElasticsearch.pesquisar(query, from, ["titulo", "corpo"])
-
+  def self.pesquisar_por_titulo(query, limite)
+    response = UtilElasticsearch.pesquisar(query, nil, limite, ["titulo"])
     preencher_noticias_com_JSON(response)
   end
 
   def self.pesquisar_por_categoria(categoria, from)
-
-    response = UtilElasticsearch.pesquisar(UtilString.manter_somente_letras_e_numeros(Base64.encode64(categoria)), from, ["categoria"])
-
+    response = UtilElasticsearch.pesquisar(UtilString.manter_somente_letras_e_numeros(Base64.encode64(categoria)), from, LIMITE_NOTICIAS_POR_PAGINA, ["categoria"])
     preencher_noticias_com_JSON(response)
   end
 
@@ -150,7 +151,7 @@ class Noticia < ActiveRecord::Base
       end
       categorias_json = categorias_array.to_json
       $redis.set("categorias", categorias_json)
-  end
+    end
 
     categorias_json
   end

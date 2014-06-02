@@ -42,6 +42,19 @@ class NoticiasController < ApplicationController
     render_index_js
   end
 
+  def noticias_relacionadas
+
+    titulo = params[:titulo]
+    @noticias = Noticia.pesquisar_por_titulo(titulo, 10)
+    @noticias_relacionadas = Array.new
+
+    @noticias.each do |noticia|
+      if noticia.titulo != titulo
+        @noticias_relacionadas << noticia
+      end
+    end
+  end
+
   def show
     @title = @noticia.titulo
   end

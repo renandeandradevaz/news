@@ -91,6 +91,7 @@ body {
     border-radius: 5px;
     color: white;
     font-size: 1em;
+    margin-top: 3em;
 }
 
 .botao:hover {
@@ -116,7 +117,6 @@ body {
 
 #carregar-mais-container {
     text-align: center;
-    margin-top: 3em;
 }
 
 #pesquisar-container {
@@ -153,6 +153,23 @@ body {
     text-align: right;
     color: gray;
     font-size: 0.8em;
+}
+
+.botao-noticias-relacionadas{
+    background-color: rgb(171, 126, 221);
+    color: white;
+}
+.botao-noticias-relacionadas:hover{
+    background-color: rgb(128, 45, 221);
+}
+
+#noticias-relacionadas{
+    margin-top: 3em;
+    display: none;
+}
+
+#noticias-relacionadas a{
+    color: rgb(33, 95, 33);;
 }
 
 @media screen and (min-width: 481px) {

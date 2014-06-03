@@ -45,7 +45,7 @@ RAILS_ENV=production bundle exec rake assets:precompile
 ```
 
 ```sh
-puma -e production -p 3001
+puma -e production -p 3000
 ```
 
 

@@ -4,6 +4,8 @@
 $(document).ready(function(){
 
     $('#menu').on('click', function(e){
+        
+        $('#menu').text('');
 
         if($('#selecione-categoria').find('option').length <= 1){
 
@@ -17,7 +19,6 @@ $(document).ready(function(){
             });
         }
         
-        $('#menu').text('');
         $('#selecione-categoria').show();
     });
 

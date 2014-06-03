@@ -2,7 +2,7 @@ Site de notícias que pega as notícias do g1.globo.com
 
 
 
-Veja em produção no link: http://news.renanvaz.info:3002
+Veja em produção no link: http://news.renanvaz.info:3000
 
 
 

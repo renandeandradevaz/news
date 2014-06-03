@@ -1,0 +1,15 @@
+[2014-06-02 21:13:42,421][INFO ][node                     ] [Stryfe] version[1.2.0], pid[5254], build[c82387f/2014-05-22T12:49:13Z]
+[2014-06-02 21:13:42,439][INFO ][node                     ] [Stryfe] initializing ...
+[2014-06-02 21:13:42,556][INFO ][plugins                  ] [Stryfe] loaded [http-basic-server-plugin, AuthPlugin], sites []
+[2014-06-02 21:13:46,442][INFO ][org.codelibs.elasticsearch.auth.service.AuthService] [Stryfe] Creating authenticators.
+[2014-06-02 21:13:46,443][INFO ][com.asquera.elasticsearch.plugins.http.HttpBasicServer] using my_username:my_password with whitelist [127.0.0.1, localhost], xforward 
+[2014-06-02 21:13:46,921][INFO ][node                     ] [Stryfe] initialized
+[2014-06-02 21:13:46,921][INFO ][node                     ] [Stryfe] starting ...
+[2014-06-02 21:13:46,921][INFO ][org.codelibs.elasticsearch.auth.service.AuthService] [Stryfe] Starting AuthService.
+[2014-06-02 21:13:46,922][INFO ][org.codelibs.elasticsearch.auth.security.IndexAuthenticator] Registering IndexAuthenticator.
+[2014-06-02 21:13:46,992][INFO ][com.asquera.elasticsearch.plugins.http.HttpBasicServer] [Stryfe] bound_address {inet[/0:0:0:0:0:0:0:0:9200]}, publish_address {inet[/179.199.119.213:9200]}
+[2014-06-02 21:13:47,075][INFO ][transport                ] [Stryfe] bound_address {inet[/0:0:0:0:0:0:0:0:9300]}, publish_address {inet[/179.199.119.213:9300]}
+[2014-06-02 21:13:50,112][INFO ][cluster.service          ] [Stryfe] new_master [Stryfe][Wg3Z6YSNRTaX4nagJPovmw][renan-ubuntu13][inet[/179.199.119.213:9300]], reason: zen-disco-join (elected_as_master)
+[2014-06-02 21:13:50,142][INFO ][discovery                ] [Stryfe] elasticsearch/Wg3Z6YSNRTaX4nagJPovmw
+[2014-06-02 21:13:51,302][INFO ][gateway                  ] [Stryfe] recovered [4] indices into cluster_state
+[2014-06-02 21:13:52,947][INFO ][node                     ] [Stryfe] started

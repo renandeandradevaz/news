@@ -1,8 +1,9 @@
-==  AINDA EM DESENVOLVIMENTO!!! 
- 
-
-
 Site de notícias que pega as notícias do g1.globo.com
+
+
+
+Veja em produção no link: http://news.renanvaz.info:3002
+
 
 
 Desenvolvido em Rails + mysql + elasticsearch + redis
@@ -16,6 +17,8 @@ Redis sendo responsável por guardar o cache das notícias mais acessadas.
 
 Design responsivo e minimalista para funcionar bem em dispositivos móveis com internet lenta.
 
+
+Testes com Nightwatch.js
 
 
 

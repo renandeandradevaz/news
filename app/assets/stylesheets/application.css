@@ -31,6 +31,10 @@ body {
     width: 10%;
 }
 
+#menu img{
+    width: 1em;
+}
+
 #selecione-categoria {
     display: none;
     padding: 0.5em;

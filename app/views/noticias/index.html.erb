@@ -1,6 +1,6 @@
 <% content_for :menu do %>
     <div id='menu-container'>
-      <div id="menu"> ☰</div>
+      <div id="menu"> <%= image_tag("menu-icon.png") %> </div>
       <form action="/noticias/pesquisar_por_categoria" data-remote="true">
         <select id="selecione-categoria" name="categoria">
           <option selected value=""> Selecione uma categoria</option>

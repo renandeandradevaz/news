@@ -1,3 +1,7 @@
+
+<a href="https://codeclimate.com/github/renandeandradevaz/news"><img src="https://codeclimate.com/github/renandeandradevaz/news.png" /></a>
+
+
 Site de notícias que pega as notícias do g1.globo.com
 
 
@@ -7,7 +11,6 @@ Veja em produção no link: http://news.renanvaz.info:3000
 
 
 Desenvolvido em Rails + mysql + elasticsearch + redis
-<a href="https://codeclimate.com/github/renandeandradevaz/news"><img src="https://codeclimate.com/github/renandeandradevaz/news.png" /></a>
 
 
 

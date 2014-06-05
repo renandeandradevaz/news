@@ -8,11 +8,6 @@
     $('.query').val('<%= @query %>');
 <% end %>
 
-<% @noticias.each do |noticia| %>
-
-    if ($('#<%= noticia.url %>').length == 0) {
-        $('#noticias').append("<a href='noticias/<%= noticia.url %>'> <h2 id='<%= noticia.url %>' class='noticia'> <%= noticia.titulo %> </h2> </a>");
-    }
-<% end %>
+$('#noticias').append("<%= escape_javascript(render :partial => 'noticias' ) %>");
 
 $('.pagina').val('<%= @pagina.to_i + 1 %>');

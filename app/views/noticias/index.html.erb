@@ -13,7 +13,7 @@
   <form action="/noticias/pesquisar" data-remote="true">
     <%= render 'pagina_hidden' %>
     <%= render 'categoria_hidden' %>
-    <input type="text" name="query" class="query" placeholder="<%= t(:pesquise_aqui) %>">
+    <input type="text" id="query" name="query" class="query" placeholder="<%= t(:pesquise_aqui) %>">
     <input type="submit" class="botao botao-pesquisar" value="<%= t(:pesquisar) %>">
   </form>
 </div>

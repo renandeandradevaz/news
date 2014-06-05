@@ -5,7 +5,7 @@ $(document).ready(function(){
 
     $('#menu').on('click', function(e){
         
-        $('#menu').text('');
+        $('#menu').text('&nbsp;');
 
         if($('#selecione-categoria').find('option').length <= 1){
 

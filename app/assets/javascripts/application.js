@@ -15,11 +15,11 @@ $(document).ready(function(){
                     $(data).each(function( index, value ) {
                         $('#selecione-categoria').append("<option>" + value +  "</option>");
                     });
+
+                    $('#selecione-categoria').show();
                 }
             });
         }
-        
-        $('#selecione-categoria').show();
     });
 
     $('#selecione-categoria').on('change', function(){

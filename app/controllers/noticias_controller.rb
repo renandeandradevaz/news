@@ -26,7 +26,6 @@ class NoticiasController < ApplicationController
   end
 
   def pesquisar
-    
     params[:pagina] = 1
     index
     render_index_js

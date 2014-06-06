@@ -3,7 +3,7 @@
 
 $(document).ready(function(){
 
-    $('#menu').on('click', function(e){
+    $('#menu').on('click', function(){
         
         $('#menu').text('');
 
@@ -27,6 +27,14 @@ $(document).ready(function(){
         var categoria = $(this).find("option:selected").val();
         $('.categoria').val(categoria);
         $('#selecione-categoria').submit();
+    });
+
+    $(document)
+        .ajaxStart(function() {
+            $('.loader').show();
+        })
+        .ajaxStop(function() {
+            $('.loader').hide();
     });
 });
 

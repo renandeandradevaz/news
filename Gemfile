@@ -20,3 +20,8 @@ gem 'nokogiri'
 gem 'whenever'
 gem 'puma'
 gem 'newrelic_rpm'
+
+group :development do
+  gem 'ruby-prof'
+end
+

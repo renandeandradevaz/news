@@ -24,4 +24,3 @@ gem 'newrelic_rpm'
 group :development do
   gem 'ruby-prof'
 end
-

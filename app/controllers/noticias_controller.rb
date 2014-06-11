@@ -3,10 +3,6 @@ class NoticiasController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :create, :update]
 
   def index
-
-    #basta cercar o código com o profile start and stop para analisar o código
-    #RubyProf.start
-
     @query = params[:query]
     @pagina = params[:pagina]
     @categoria = params[:categoria]
@@ -23,8 +19,6 @@ class NoticiasController < ApplicationController
         render_index_js
       end
     end
-
-    #UtilProfile.salvar_resultado_profile(RubyProf.stop)
   end
 
   def render_index_js

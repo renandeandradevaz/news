@@ -5,7 +5,7 @@ class NoticiasController < ApplicationController
   def index
 
     #basta cercar o código com o profile start and stop para analisar o código
-    RubyProf.start
+    #RubyProf.start
 
     @query = params[:query]
     @pagina = params[:pagina]
@@ -24,7 +24,7 @@ class NoticiasController < ApplicationController
       end
     end
 
-    UtilProfile.salvar_resultado_profile(RubyProf.stop)
+    #UtilProfile.salvar_resultado_profile(RubyProf.stop)
   end
 
   def render_index_js

@@ -3,6 +3,7 @@
 <head>
   <title>News - <%= @title %> </title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= stylesheet_link_tag "application", media: "all" %>
   <%= csrf_meta_tags %>
 
   <script>
@@ -39,8 +40,8 @@
   <h3> <a href="https://github.com/renandeandradevaz/news"> Link para o código do projeto no github </a> </h3>
 </div>
 
-<%= stylesheet_link_tag    "application", media: "all" %>
 <div class="loader"></div>
+
 <%= javascript_include_tag "application" %>
 
 </body>

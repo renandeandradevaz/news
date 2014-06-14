@@ -38,6 +38,10 @@ whenever -i --set environment=production
 ```
 
 ```sh
+bundle install
+```
+
+```sh
 RAILS_ENV=production rake db:create
 ```
 
@@ -53,6 +57,7 @@ RAILS_ENV=production bundle exec rake assets:precompile
 puma -e production -p 3000
 ```
 
+Se der algum erro como: "No such file or directory - /temp/profile/". Crie uma pasta com essa estrutura na "/" e dê permissões de leitura e escrita.
 
 
 

@@ -26,7 +26,7 @@ class Noticia < ActiveRecord::Base
     indexado_no_elasticsearch = false
 
     begin
-      response = UtilElasticsearch.indexar(self.id, self.titulo, self.corpo, self.url, self.categoria)
+      response = UtilElasticsearch.indexar({"id" => self.id, "titulo" => self.titulo, "corpo" => self.corpo, "url" => self.url, "categoria" => self.categoria})
 
       if response.code == 200 or response.code == 201
         indexado_no_elasticsearch = true
@@ -85,17 +85,19 @@ class Noticia < ActiveRecord::Base
   end
 
   def self.pesquisar_no_elasticsearch(query, from)
-    response = UtilElasticsearch.pesquisar(query, from, LIMITE_NOTICIAS_POR_PAGINA, ["titulo", "corpo"])
+    response = UtilElasticsearch.pesquisar({"query" => query, "from" => from, "limite" => LIMITE_NOTICIAS_POR_PAGINA, "fields" => ["titulo", "corpo"]})
     preencher_noticias_com_JSON(response)
   end
 
   def self.pesquisar_por_titulo(query, limite)
-    response = UtilElasticsearch.pesquisar(query, nil, limite, ["titulo"])
+    response = UtilElasticsearch.pesquisar({"query" => query, "limite" => limite, "fields" => ["titulo"]})
     preencher_noticias_com_JSON(response)
   end
 
   def self.pesquisar_por_categoria(categoria, from)
-    response = UtilElasticsearch.pesquisar(UtilString.manter_somente_letras_e_numeros(Base64.encode64(categoria)), from, LIMITE_NOTICIAS_POR_PAGINA, ["categoria"])
+    query = UtilString.manter_somente_letras_e_numeros(Base64.encode64(categoria))
+    sort = ',"sort": [{ "id": { "order": "desc" } } ]'
+    response = UtilElasticsearch.pesquisar({"query" => query, "from" => from, "limite" => LIMITE_NOTICIAS_POR_PAGINA, "fields" => ["categoria"], "sort" => sort})
     preencher_noticias_com_JSON(response)
   end
 

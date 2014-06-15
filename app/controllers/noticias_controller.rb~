@@ -1,7 +1,6 @@
 class NoticiasController < ApplicationController
   before_action :set_noticia, only: [:show, :edit, :update]
   before_action :authenticate_user!, only: [:new, :edit, :create, :update]
-  caches_page :index
 
   def index
     @query = params[:query]

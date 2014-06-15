@@ -12,6 +12,7 @@ class Noticia < ActiveRecord::Base
     Noticia.salvar_no_redis
     $redis.set("categorias", '')
     Noticia.listar_categorias
+    ActionController::Base.expire_page("/")
   end
 
   def definir_url
